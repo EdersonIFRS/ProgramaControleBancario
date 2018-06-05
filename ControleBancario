@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+public class VictorSilva {
+	static Scanner teclado;
+	
+	public static void main(String[] args) {
+		teclado = new Scanner(System.in);
+		
+		int codigos_contas[] = {1234,2345,3456,4567,5678,6789,7890,8901,9012,1012}, operacao=0, posicao_conta=0;
+		float saldos[] = {100,200,300,400,500,600,700,800,900,1000};	
+		
+		do{
+			exibirMenu();
+			operacao=lerOperacaoMenu();
+			escolherOperacaoMenu(operacao, codigos_contas, saldos);
+		}while(operacao!=5);
+	}
+	
+	static void exibirMenu(){
+		System.out.println(" ");
+		System.out.println("## Menu Controle Bancário ##");
+		System.out.println("1. Efetuar depósito");
+		System.out.println("2. Efetuar saque");
+		System.out.println("3. Transferência");
+		System.out.println("4. Consultar o ativo bancário");
+		System.out.println("5. Finalizar o programa");		
+	}
+	
+	static int lerOperacaoMenu(){
+		int operacao;
+		do{
+			System.out.print("Informe a operacao desejada: ");
+			operacao=teclado.nextInt();
+			if((operacao<1) || (operacao>5))
+				System.out.println("Operacao inválida!");
+		}while((operacao<1) || (operacao>5));		
+		return operacao;
+	}
+	
+	static void escolherOperacaoMenu(int operacao, int[] contas, float[] saldos){
+		//contas = new int[10];
+		//saldos = new float[10];
+		
+		switch(operacao){
+			case 1:
+				depositar(contas, saldos);
+				break;
+			case 2:
+				//sacar(contas,  saldos, valor);
+				break;
+			case 3:
+				//transferir(contas, saldos, valor);
+				break;
+			case 4:
+				//consultar(contas, saldos);
+				break;
+			case 5:
+				terminar();		
+		}		
+		
+	}	
+
+	static int validarConta(int []codigos_contas){
+		int codigo_conta=0, posicao_conta=0, num_tentativas=0, i=0;
+		boolean status_conta=false;
+		
+		do{
+			System.out.print("\nInforme o número da conta: ");
+			codigo_conta=teclado.nextInt();	
+			
+			for(i=0;i<codigos_contas.length;i++){
+				if(codigo_conta==codigos_contas[i]){
+					posicao_conta=i;
+					status_conta=true;
+				}				
+			}
+			num_tentativas++;
+			if(status_conta==false){
+				System.out.print("Conta não encontrada!");
+				if(num_tentativas==3){
+					System.out.print("Tente novamente mais tarde.");
+					terminar();
+				}			
+			}
+			
+		}while((status_conta==false));		
+		return posicao_conta;
+	}
+	
+	
+	static void depositar(int[] codigos_contas, float[] saldos){
+		int posicao_conta = validarConta(codigos_contas); 
+		
+		float valor_deposito=0;
+		System.out.print("Informe o valor a ser depositado:");
+		valor_deposito=teclado.nextFloat();
+		
+		float saldo_anterior = saldos[posicao_conta]; 
+		saldos[posicao_conta]+=valor_deposito;
+		System.out.println("Cod conta: "+codigos_contas[posicao_conta]+"\tSaldo anterior: "+saldo_anterior+"\tSaldo atual:  "+saldos[posicao_conta]);				
+	}
+	
+	
+	
+	static void sacar(int[] contas, float[] saldos, double valor){
+		
+	}
+	static void transferir(int[] contas, float[] saldos, double valor){}
+	static void consultar(int[] contas, float[] saldos){
+		
+		
+	}
+	
+	static void terminar(){
+		System.out.println("\nPrograma Finalizado!");
+		System.exit(0);
+	}
+
+}
