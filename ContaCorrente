@@ -1,0 +1,94 @@
+
+package contacorrente;
+import java.util.Scanner;
+
+public class ContaCorrente {
+    
+    int numero;
+    int saldo;
+    String status;
+    int limite;
+    
+    int menu(){
+        
+        System.out.println("1 - DEPOSITO \n"+"2 - SAQUE \n"+"3 - SALDO \n" + "4 - CHEQUE ESPECIAL \n"+"0 - PARA SAIR");
+        int menu = input();
+        return menu;
+    }
+    int input(){
+        Scanner input= new Scanner(System.in);
+        int x = input.nextInt();
+        return x;
+    }
+    
+    int operacao(){
+        int operacao = 0;
+        do{
+          operacao = menu(); 
+          if(operacao == 1 || operacao == 2 ||operacao == 3 ||operacao == 4 ||operacao == 0){
+         switch( operacao ){
+         
+             case 1:
+                 System.out.println("informe Valor de Deposito: ");
+                 saldo += input();
+                 break;
+    
+            case 2:
+                System.out.println("informe Valor de Saque: ");
+                int a = input();
+                    if(a<=saldo){
+                        saldo -= input();
+                    }else {
+                     System.out.println("Saldo insuficiente");
+                     System.out.println("Saldo Disponivel:"+ saldo);
+                     System.out.println("Saldo Solicitado" +a);
+                    }
+                break;
+    
+            case 3:
+                System.out.println("Novo Saldo:" + saldo);
+                if(status.equals("ESPECIAL")){
+                    System.out.println("Saldo Cheque Especial:" + limite);
+                }
+                break;
+            case 4:
+                if(status.equals("ESPECIAL")){
+                System.out.println("Saldo Cheque Especial:" + limite);
+                System.out.println("Deseja Sacar \n" + " 1 - Sim \n" + " 2 - Nao");
+                int op = input();
+                System.out.println("Digite o Valor");
+                        int n = input();
+                    if(n <= limite ){
+                        if(op == 1 && limite != 0){
+                          limite = limite - n;
+                          saldo += n;
+                        }else if(limite == 0){
+                          System.out.println("Sem saldo no cheque especial");
+                        }
+                    }else{
+                        System.out.println("Saldo insuficiente"); 
+                        System.out.println("Limite especial: " + limite);
+                    }
+                }else{
+                    System.out.println("Conta Nao possui cheque especial");
+                }
+                break;
+                
+    
+            case 0:
+                System.out.println("Saindo.....");
+                break;
+           }
+         }else{
+          System.out.println("opção invalida");
+         }
+       }while(operacao !=0);
+    return saldo;
+    }
+ }
+
+
+
+
+
+
