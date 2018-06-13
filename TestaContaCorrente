@@ -1,0 +1,26 @@
+
+package contacorrente;
+
+/**
+ *
+ * @author eders
+ */
+public class TestaContaCorrente {
+    public static void main(String[] args) {
+      ContaCorrente conta = new ContaCorrente();
+        conta.numero = 10;
+        conta.saldo  = 1000;
+        conta.limite = 500;
+        conta.status = "ESPECIAL";
+        
+        
+        System.out.println("Numero:" + conta.numero);
+        System.out.println("Saldo:" + conta.saldo);
+        System.out.println("Limite:" + conta.limite);
+        System.out.println("Cheque especial:" + conta.status);
+        
+        conta.operacao();
+        
+    }
+}
+
